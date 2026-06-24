@@ -1,0 +1,1174 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>My Senders - The Orbix</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --primary-blue: #3b82f6;
+            --primary-dark: #1e40af;
+            --accent-blue: #60a5fa;
+            --light-blue: #dbeafe;
+            --soft-white: #f8fafc;
+            --dark-bg: #0f172a;
+            --card-bg: #1e293b;
+            --border-color: #334155;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --error: #ef4444;
+            --gradient-primary: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+            --gradient-accent: linear-gradient(135deg, #60a5fa 0%, #3b82f6 100%);
+            --shadow-lg: 0 20px 40px rgba(0, 0, 0, 0.15);
+            --shadow-xl: 0 25px 50px rgba(0, 0, 0, 0.2);
+            --radius-lg: 16px;
+            --radius-md: 12px;
+            --radius-sm: 8px;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background-color: var(--dark-bg);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            color: var(--soft-white);
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(59, 130, 246, 0.1) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(30, 64, 175, 0.1) 0%, transparent 20%);
+        }
+
+        .app-container {
+            width: 100%;
+            height: 100dvh;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            background: var(--dark-bg);
+            overflow: hidden;
+            box-shadow: var(--shadow-xl);
+        }
+
+        @media (min-width: 768px) {
+            .app-container {
+                width: 420px;
+                height: 90vh;
+                max-height: 900px;
+                border-radius: 24px;
+                border: 1px solid var(--border-color);
+                overflow: hidden;
+            }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.4s ease forwards;
+        }
+
+        .delay-100 { animation-delay: 0.1s; }
+        .delay-200 { animation-delay: 0.2s; }
+        .delay-300 { animation-delay: 0.3s; }
+
+        header {
+            height: 72px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 24px;
+            background: rgba(30, 41, 59, 0.8);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border-color);
+            z-index: 50;
+        }
+
+        .header-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -0.5px;
+        }
+
+        .icon-button {
+            width: 40px;
+            height: 40px;
+            border-radius: var(--radius-md);
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border-color);
+            color: var(--accent-blue);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition);
+            text-decoration: none;
+        }
+
+        .icon-button:hover {
+            background: rgba(59, 130, 246, 0.1);
+            transform: translateY(-1px);
+        }
+
+        .main-content {
+            flex: 1;
+            overflow-y: auto;
+            padding: 24px;
+            padding-bottom: 100px;
+        }
+
+        .main-content::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .main-content::-webkit-scrollbar-thumb {
+            background: var(--primary-blue);
+            border-radius: 10px;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border-radius: var(--radius-lg);
+            padding: 24px;
+            border: 1px solid var(--border-color);
+            margin-bottom: 20px;
+            box-shadow: var(--shadow-lg);
+            transition: var(--transition);
+        }
+
+        .card:hover {
+            border-color: var(--primary-blue);
+            transform: translateY(-2px);
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        .input-label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--light-blue);
+        }
+
+        .input-wrapper {
+            position: relative;
+        }
+
+        .input-field {
+            width: 100%;
+            padding: 16px 20px;
+            background: rgba(30, 41, 59, 0.7);
+            border: 2px solid var(--border-color);
+            border-radius: var(--radius-md);
+            color: var(--soft-white);
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+
+        .input-field:focus {
+            outline: none;
+            border-color: var(--primary-blue);
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+
+        .input-icon {
+            position: absolute;
+            right: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--accent-blue);
+        }
+
+        .primary-button {
+            width: 100%;
+            padding: 16px;
+            background: var(--gradient-primary);
+            border: none;
+            border-radius: var(--radius-md);
+            color: white;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
+        }
+
+        .primary-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(59, 130, 246, 0.4);
+        }
+
+        .primary-button:active {
+            transform: translateY(0);
+        }
+
+        .primary-button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .section-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--soft-white);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-title i {
+            color: var(--accent-blue);
+        }
+
+        .senders-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .sender-card {
+            background: rgba(30, 41, 59, 0.6);
+            border-radius: var(--radius-md);
+            padding: 18px;
+            border: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            transition: var(--transition);
+            cursor: pointer;
+        }
+
+        .sender-card:hover {
+            background: rgba(59, 130, 246, 0.1);
+            border-color: var(--primary-blue);
+            transform: translateX(4px);
+        }
+
+        .status-indicator {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+
+        .status-connected {
+            background: var(--success);
+            box-shadow: 0 0 10px var(--success);
+        }
+
+        .status-connecting {
+            background: var(--warning);
+            animation: pulse 1.5s infinite;
+        }
+
+        .status-pairing {
+            background: var(--accent-blue);
+            animation: pulse 1s infinite;
+        }
+
+        .status-disconnected {
+            background: var(--border-color);
+        }
+
+        .status-error {
+            background: var(--error);
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .sender-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .sender-name {
+            font-weight: 600;
+            color: var(--soft-white);
+            margin-bottom: 4px;
+            font-size: 0.95rem;
+        }
+
+        .sender-status {
+            font-size: 0.8rem;
+            color: var(--accent-blue);
+        }
+
+        .action-button {
+            padding: 8px 16px;
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            border-radius: var(--radius-sm);
+            color: var(--error);
+            font-size: 0.85rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .action-button:hover {
+            background: rgba(239, 68, 68, 0.2);
+        }
+
+        .terminal {
+            background: rgba(15, 23, 42, 0.9);
+            border-radius: var(--radius-md);
+            padding: 20px;
+            border: 1px solid var(--border-color);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+
+        .log-line {
+            margin-bottom: 8px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .log-success {
+            color: var(--success);
+        }
+
+        .log-error {
+            color: var(--error);
+        }
+
+        .log-info {
+            color: var(--accent-blue);
+        }
+
+        .bottom-navigation {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 80px;
+            background: rgba(30, 41, 59, 0.95);
+            backdrop-filter: blur(10px);
+            border-top: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            z-index: 100;
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+            color: #64748b;
+            text-decoration: none;
+            padding: 12px;
+            border-radius: var(--radius-md);
+            transition: var(--transition);
+            flex: 1;
+            max-width: 80px;
+        }
+
+        .nav-item i {
+            font-size: 1.2rem;
+        }
+
+        .nav-item span {
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+
+        .nav-item.active {
+            color: var(--primary-blue);
+            background: rgba(59, 130, 246, 0.1);
+        }
+
+        .nav-item:hover {
+            color: var(--accent-blue);
+            transform: translateY(-2px);
+        }
+
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: -300px;
+            width: 280px;
+            height: 100%;
+            background: var(--card-bg);
+            z-index: 1000;
+            transition: var(--transition);
+            border-right: 1px solid var(--border-color);
+            box-shadow: var(--shadow-xl);
+        }
+
+        .sidebar.active {
+            left: 0;
+        }
+
+        .sidebar-header {
+            padding: 30px 24px;
+            background: var(--gradient-primary);
+            color: white;
+        }
+
+        .sidebar-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .sidebar-subtitle {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        .sidebar-menu {
+            padding: 24px 0;
+        }
+
+        .menu-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 16px 24px;
+            color: var(--soft-white);
+            text-decoration: none;
+            transition: var(--transition);
+            border-left: 3px solid transparent;
+        }
+
+        .menu-item:hover {
+            background: rgba(59, 130, 246, 0.1);
+            border-left-color: var(--primary-blue);
+            padding-left: 28px;
+        }
+
+        .menu-item i {
+            width: 20px;
+            color: var(--accent-blue);
+        }
+
+        .backdrop {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(4px);
+            z-index: 999;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition);
+        }
+
+        .backdrop.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .notification {
+            position: fixed;
+            bottom: 100px;
+            left: 50%;
+            transform: translateX(-50%) translateY(20px);
+            background: var(--card-bg);
+            border: 1px solid var(--primary-blue);
+            border-radius: var(--radius-md);
+            padding: 16px 24px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: var(--soft-white);
+            font-weight: 500;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition);
+            z-index: 2000;
+            max-width: 90%;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .notification.show {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10000;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition);
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal {
+            background: var(--card-bg);
+            border-radius: var(--radius-lg);
+            padding: 32px;
+            width: 90%;
+            max-width: 400px;
+            border: 1px solid var(--border-color);
+            box-shadow: var(--shadow-xl);
+            transform: scale(0.9);
+            transition: var(--transition);
+        }
+
+        .modal-overlay.active .modal {
+            transform: scale(1);
+        }
+
+        .modal-header {
+            margin-bottom: 24px;
+            text-align: center;
+        }
+
+        .modal-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--soft-white);
+            margin-bottom: 8px;
+        }
+
+        .modal-subtitle {
+            color: var(--accent-blue);
+            font-size: 0.9rem;
+        }
+
+        .code-container {
+            background: rgba(15, 23, 42, 0.8);
+            border-radius: var(--radius-md);
+            padding: 24px;
+            margin: 20px 0;
+            text-align: center;
+            border: 2px solid var(--border-color);
+        }
+
+        .code {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--soft-white);
+            letter-spacing: 2px;
+            margin-bottom: 16px;
+        }
+
+        .copy-button {
+            width: 100%;
+            padding: 12px;
+            background: rgba(59, 130, 246, 0.1);
+            border: 1px solid var(--primary-blue);
+            border-radius: var(--radius-md);
+            color: var(--primary-blue);
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .copy-button:hover {
+            background: rgba(59, 130, 246, 0.2);
+        }
+
+        .copy-button.copied {
+            background: var(--success);
+            border-color: var(--success);
+            color: white;
+        }
+
+        .instructions {
+            background: rgba(59, 130, 246, 0.05);
+            border-radius: var(--radius-md);
+            padding: 20px;
+            margin: 20px 0;
+            border-left: 3px solid var(--primary-blue);
+        }
+
+        .instructions-title {
+            font-weight: 600;
+            color: var(--soft-white);
+            margin-bottom: 12px;
+            font-size: 0.95rem;
+        }
+
+        .instructions-list {
+            color: var(--accent-blue);
+            font-size: 0.85rem;
+            line-height: 1.6;
+            padding-left: 20px;
+        }
+
+        .instructions-list li {
+            margin-bottom: 8px;
+        }
+
+        .modal-warning {
+            background: rgba(245, 158, 11, 0.1);
+            border: 1px solid var(--warning);
+            border-radius: var(--radius-md);
+            padding: 16px;
+            margin: 20px 0;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: var(--warning);
+            font-size: 0.85rem;
+        }
+
+        .close-button {
+            width: 100%;
+            padding: 16px;
+            background: var(--gradient-primary);
+            border: none;
+            border-radius: var(--radius-md);
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            margin-top: 20px;
+        }
+
+        .close-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(59, 130, 246, 0.4);
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 40px 20px;
+            color: #64748b;
+        }
+
+        .empty-state i {
+            font-size: 3rem;
+            margin-bottom: 16px;
+            color: var(--border-color);
+        }
+
+        .empty-state h4 {
+            font-size: 1.1rem;
+            margin-bottom: 8px;
+            color: var(--soft-white);
+        }
+
+        .empty-state p {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="app-container">
+        
+        <div class="backdrop" onclick="toggleSidebar()"></div>
+
+        <div class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <div class="sidebar-title">The Orbix</div>
+                <div class="sidebar-subtitle">Premium WhatsApp Automation</div>
+            </div>
+            <div class="sidebar-menu">
+                <a href="/myinfo" class="menu-item">
+                    <i class="fas fa-user-circle"></i>
+                    <span>My Profile</span>
+                </a>
+                <a href="/dashboard" class="menu-item">
+                    <i class="fas fa-home"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="/execution" class="menu-item">
+                    <i class="fas fa-bolt"></i>
+                    <span>Attack Suite</span>
+                </a>
+                <a href="/analytics" class="menu-item">
+                    <i class="fas fa-chart-line"></i>
+                    <span>Analytics</span>
+                </a>
+                <a href="/settings" class="menu-item">
+                    <i class="fas fa-cog"></i>
+                    <span>Settings</span>
+                </a>
+            </div>
+        </div>
+
+        <header>
+            <a href="/dashboard" class="icon-button">
+                <i class="fas fa-chevron-left"></i>
+            </a>
+            <div class="header-title">My Senders</div>
+            <button class="icon-button" onclick="toggleSidebar()">
+                <i class="fas fa-bars"></i>
+            </button>
+        </header>
+
+        <div class="main-content">
+            
+            <div class="card fade-in">
+                <div class="input-group">
+                    <label class="input-label">WhatsApp Number</label>
+                    <div class="input-wrapper">
+                        <input type="tel" class="input-field" id="senderNumber" placeholder="62xxxxxxxxxxx">
+                        <i class="fas fa-phone-alt input-icon"></i>
+                    </div>
+                </div>
+                
+                <button class="primary-button" onclick="addSender()" id="addButton">
+                    <i class="fas fa-plus-circle"></i>
+                    <span>Add New Sender</span>
+                </button>
+            </div>
+
+            <div class="card fade-in delay-100">
+                <div class="section-title">
+                    <i class="fas fa-satellite-dish"></i>
+                    <span>Active Senders</span>
+                </div>
+                
+                <div class="senders-list" id="sendersList">
+                    <div class="empty-state" id="emptyState">
+                        <i class="fas fa-user-slash"></i>
+                        <h4>No Senders Yet</h4>
+                        <p>Add your first WhatsApp sender to get started</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card fade-in delay-200">
+                <div class="section-title">
+                    <i class="fas fa-terminal"></i>
+                    <span>System Log</span>
+                </div>
+                <div class="terminal" id="terminal">
+                    <div class="log-line log-info">System initialized at 00:00:00</div>
+                    <div class="log-line log-info">Ready to manage WhatsApp senders</div>
+                </div>
+            </div>
+
+        </div>
+
+        <nav class="bottom-navigation">
+            <a href="/dashboard" class="nav-item">
+                <i class="fas fa-home"></i>
+                <span>Home</span>
+            </a>
+            <a href="#" class="nav-item active">
+                <i class="fas fa-satellite-dish"></i>
+                <span>Senders</span>
+            </a>
+            <a href="/execution" class="nav-item">
+                <i class="fas fa-bolt"></i>
+                <span>Attack</span>
+            </a>
+            <a href="/myinfo" class="nav-item">
+                <i class="fas fa-chart-bar"></i>
+                <span>Analytics</span>
+            </a>
+        </nav>
+
+        <div class="notification" id="notification">
+            <i class="fas fa-info-circle"></i>
+            <span id="notificationMessage">Notification message</span>
+        </div>
+
+    </div>
+
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 class="modal-title">Pairing Required</h3>
+                <p class="modal-subtitle">Scan QR code or enter pairing code</p>
+            </div>
+            
+            <div class="code-container">
+                <div class="code" id="pairingCode">XXXX-XXXX</div>
+                <button class="copy-button" id="copyButton">
+                    <i class="fas fa-copy"></i>
+                    <span>Copy Code</span>
+                </button>
+            </div>
+            
+            <div class="instructions">
+                <div class="instructions-title">How to Pair:</div>
+                <ol class="instructions-list">
+                    <li>Open WhatsApp on your phone</li>
+                    <li>Go to Settings → Linked Devices</li>
+                    <li>Tap on "Link a Device"</li>
+                    <li>Enter the pairing code above</li>
+                    <li>Wait for confirmation</li>
+                </ol>
+            </div>
+            
+            <div class="modal-warning">
+                <i class="fas fa-shield-alt"></i>
+                <span>Keep this code secure. Do not share with anyone.</span>
+            </div>
+            
+            <button class="close-button" onclick="closeModal()">
+                <i class="fas fa-check"></i>
+                <span>I Understand</span>
+            </button>
+        </div>
+    </div>
+
+    <script>
+        let eventSource = null;
+        const activeSenders = new Map();
+        let currentPairingNumber = null;
+
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const backdrop = document.querySelector('.backdrop');
+            sidebar.classList.toggle('active');
+            backdrop.classList.toggle('active');
+        }
+
+        const utils = {
+            log: (message, type = 'info') => {
+                const terminal = document.getElementById('terminal');
+                const line = document.createElement('div');
+                line.className = `log-line log-${type}`;
+                line.innerHTML = `[${new Date().toLocaleTimeString()}] ${message}`;
+                terminal.appendChild(line);
+                terminal.scrollTop = terminal.scrollHeight;
+                console.log(`[LOG] ${message}`);
+            },
+            
+            notify: (message, type = 'info') => {
+                const notification = document.getElementById('notification');
+                const messageSpan = document.getElementById('notificationMessage');
+                const icon = notification.querySelector('i');
+                
+                messageSpan.textContent = message;
+                
+                if (type === 'error') {
+                    notification.style.borderColor = 'var(--error)';
+                    icon.className = 'fas fa-exclamation-circle';
+                } else if (type === 'success') {
+                    notification.style.borderColor = 'var(--success)';
+                    icon.className = 'fas fa-check-circle';
+                } else {
+                    notification.style.borderColor = 'var(--primary-blue)';
+                    icon.className = 'fas fa-info-circle';
+                }
+                
+                notification.classList.add('show');
+                setTimeout(() => notification.classList.remove('show'), 3000);
+            },
+            
+            showModal: (code, number) => {
+                const modalOverlay = document.getElementById('modalOverlay');
+                const codeElement = document.getElementById('pairingCode');
+                currentPairingNumber = number;
+                
+                const formattedCode = code.length === 8 ? 
+                    `${code.substring(0, 4)}-${code.substring(4)}` : code;
+                
+                codeElement.textContent = formattedCode;
+                modalOverlay.classList.add('active');
+                
+                const copyButton = document.getElementById('copyButton');
+                copyButton.onclick = () => {
+                    navigator.clipboard.writeText(code.replace(/-/g, ''))
+                        .then(() => {
+                            copyButton.innerHTML = '<i class="fas fa-check"></i><span>Copied!</span>';
+                            copyButton.classList.add('copied');
+                            utils.notify('Code copied to clipboard', 'success');
+                            setTimeout(() => {
+                                copyButton.innerHTML = '<i class="fas fa-copy"></i><span>Copy Code</span>';
+                                copyButton.classList.remove('copied');
+                            }, 2000);
+                        })
+                        .catch(err => {
+                            utils.notify('Failed to copy code', 'error');
+                            console.error('Copy failed:', err);
+                        });
+                };
+            },
+            
+            closeModal: () => {
+                const modalOverlay = document.getElementById('modalOverlay');
+                modalOverlay.classList.remove('active');
+                currentPairingNumber = null;
+            }
+        };
+
+        async function addSender() {
+            const input = document.getElementById('senderNumber');
+            const button = document.getElementById('addButton');
+            let number = input.value.replace(/\D/g, '');
+            
+            if (!number || number.length < 10) {
+                utils.notify('Please enter a valid WhatsApp number starting with 62', 'error');
+                return;
+            }
+            
+            if (!number.startsWith('62')) {
+                utils.notify('Number must start with 62 (Indonesia)', 'error');
+                return;
+            }
+            
+            const originalText = button.innerHTML;
+            button.innerHTML = '<i class="fas fa-spinner fa-spin"></i><span>Adding...</span>';
+            button.disabled = true;
+            
+            try {
+                const response = await fetch('/api/add-sender', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ number })
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    utils.log(`Sender ${number} added successfully`);
+                    utils.notify(`Sender ${number} added`, 'success');
+                    input.value = '';
+                    addSenderToUI(number, 'connecting', 'Connecting...');
+                } else {
+                    utils.log(`Failed to add sender: ${data.error}`, 'error');
+                    utils.notify(data.error || 'Failed to add sender', 'error');
+                }
+            } catch (error) {
+                utils.log(`Network error: ${error.message}`, 'error');
+                utils.notify('Network error. Please try again.', 'error');
+            } finally {
+                button.innerHTML = originalText;
+                button.disabled = false;
+            }
+        }
+
+        async function deleteSender(number) {
+            if (!confirm(`Delete sender ${number}? This action cannot be undone.`)) {
+                return;
+            }
+            
+            try {
+                const response = await fetch('/api/delete-sender', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ number })
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    removeSenderFromUI(number);
+                    utils.log(`Sender ${number} deleted`);
+                    utils.notify(`Sender ${number} deleted`, 'success');
+                } else {
+                    utils.log(`Failed to delete sender: ${data.error}`, 'error');
+                    utils.notify(data.error || 'Failed to delete sender', 'error');
+                }
+            } catch (error) {
+                utils.log(`Network error: ${error.message}`, 'error');
+                utils.notify('Network error. Please try again.', 'error');
+            }
+        }
+
+        function addSenderToUI(number, status, message) {
+            const emptyState = document.getElementById('emptyState');
+            if (emptyState) emptyState.style.display = 'none';
+            
+            const existingElement = document.querySelector(`[data-number="${number}"]`);
+            if (existingElement) {
+                updateSenderStatus(number, status, message);
+                return;
+            }
+            
+            const sendersList = document.getElementById('sendersList');
+            const senderElement = document.createElement('div');
+            senderElement.className = 'sender-card';
+            senderElement.setAttribute('data-number', number);
+            
+            let statusClass = 'status-disconnected';
+            if (status === 'connected') statusClass = 'status-connected';
+            else if (status.includes('connecting')) statusClass = 'status-connecting';
+            else if (status.includes('pairing')) statusClass = 'status-pairing';
+            else if (status === 'error') statusClass = 'status-error';
+            
+            senderElement.innerHTML = `
+                <div class="status-indicator ${statusClass}"></div>
+                <div class="sender-info">
+                    <div class="sender-name">${number}</div>
+                    <div class="sender-status">${message}</div>
+                </div>
+                <button class="action-button" onclick="deleteSender('${number}')">
+                    <i class="fas fa-trash-alt"></i>
+                </button>
+            `;
+            
+            sendersList.appendChild(senderElement);
+            activeSenders.set(number, { status, message });
+            
+            senderElement.addEventListener('click', () => {
+                if (status === 'connected') {
+                    utils.notify(`Sender ${number} is connected and ready`, 'info');
+                }
+            });
+        }
+
+        function updateSenderStatus(number, status, message) {
+            const senderElement = document.querySelector(`[data-number="${number}"]`);
+            if (!senderElement) return;
+            
+            let statusClass = 'status-disconnected';
+            if (status === 'connected') statusClass = 'status-connected';
+            else if (status.includes('connecting')) statusClass = 'status-connecting';
+            else if (status.includes('pairing')) statusClass = 'status-pairing';
+            else if (status === 'error') statusClass = 'status-error';
+            
+            const indicator = senderElement.querySelector('.status-indicator');
+            const statusElement = senderElement.querySelector('.sender-status');
+            
+            indicator.className = `status-indicator ${statusClass}`;
+            statusElement.textContent = message;
+            
+            activeSenders.set(number, { status, message });
+        }
+
+        function removeSenderFromUI(number) {
+            const senderElement = document.querySelector(`[data-number="${number}"]`);
+            if (senderElement) senderElement.remove();
+            
+            activeSenders.delete(number);
+            
+            const sendersList = document.getElementById('sendersList');
+            if (!sendersList.children.length || 
+                (sendersList.children.length === 1 && sendersList.children[0].id === 'emptyState')) {
+                const emptyState = document.getElementById('emptyState');
+                if (emptyState) emptyState.style.display = 'block';
+            }
+        }
+
+        function handleEventData(data) {
+            const { type, number, status, message, code } = data;
+            
+            switch(type) {
+                case 'status':
+                    updateSenderStatus(number, status, message);
+                    utils.log(`Sender ${number}: ${status} - ${message}`);
+                    break;
+                    
+                case 'pairing_code':
+                    if (number && code) {
+                        updateSenderStatus(number, 'pairing', 'Waiting for pairing...');
+                        utils.log(`Pairing code received for ${number}`);
+                        utils.showModal(code, number);
+                    }
+                    break;
+                    
+                case 'connected':
+                    updateSenderStatus(number, 'connected', 'Connected and ready');
+                    utils.log(`Sender ${number} connected successfully`, 'success');
+                    utils.notify(`Sender ${number} connected`, 'success');
+                    utils.closeModal();
+                    break;
+                    
+                case 'error':
+                    updateSenderStatus(number, 'error', message || 'Connection failed');
+                    utils.log(`Sender ${number} error: ${message}`, 'error');
+                    utils.notify(`Error: ${message}`, 'error');
+                    break;
+                    
+                default:
+                    console.log('Unknown event:', data);
+            }
+        }
+
+        function connectEventSource() {
+            if (eventSource) eventSource.close();
+            
+            eventSource = new EventSource('/api/events');
+            
+            eventSource.onopen = () => {
+                utils.log('Connected to real-time updates', 'success');
+            };
+            
+            eventSource.onmessage = (event) => {
+                try {
+                    const data = JSON.parse(event.data);
+                    handleEventData(data);
+                } catch (error) {
+                    console.error('Event parsing error:', error);
+                }
+            };
+            
+            eventSource.onerror = () => {
+                utils.log('Connection lost, reconnecting...', 'error');
+                setTimeout(connectEventSource, 3000);
+            };
+        }
+
+        async function loadSenders() {
+            try {
+                const response = await fetch('/api/mysenders');
+                const data = await response.json();
+                
+                if (data.success && data.senders && data.senders.length > 0) {
+                    data.senders.forEach(number => {
+                        addSenderToUI(number, 'disconnected', 'Disconnected');
+                    });
+                    utils.log(`Loaded ${data.senders.length} sender(s)`, 'success');
+                } else {
+                    utils.log('No senders found');
+                }
+            } catch (error) {
+                utils.log('Failed to load senders', 'error');
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            utils.log('My Senders system initialized', 'success');
+            loadSenders();
+            connectEventSource();
+        });
+    </script>
+</body>
+</html>
